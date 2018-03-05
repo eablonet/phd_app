@@ -3,13 +3,33 @@ from django.db import models
 # Create your models here.
 
 
-class Substrat(models.Model):
+class Substrate(models.Model):
+    """
+    Define substrat model.
+
+    This model give the main properties of each sample.
+    """
+
     name = models.CharField(max_length=20)
     date_treatment = models.DateTimeField(
             blank=True, null=True
     )
+    chemistery = models.CharField(
+        max_length=20,
+        blank=True, null=True
+    )
+    treatment_time = models.FloatField(
+        blank=True, null=True
+    )
+    oven_time = models.FloatField(
+        blank=True, null=True
+    )
+    image = models.ImageField(
+        upload_to='media/pic_folder/', default='pic_folder/None/no-img.jpg'
+    )
 
     def __str__(self):
+        """Return string for Substrat class."""
         return self.name
 
 
@@ -24,7 +44,7 @@ class Tensiometrie(models.Model):
     )
 
     substrate = models.ForeignKey(
-        'Substrat',
+        'Substrate',
         on_delete=models.CASCADE)
     date = models.DateTimeField(
             blank=True, null=True

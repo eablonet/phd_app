@@ -1,0 +1,186 @@
+{% extends 'phd/base.html' %}
+
+<!-- Content -->
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">PhD</a></li>
+  <li class="breadcrumb-item"><a href="/substrate/">Substrate</a></li>
+  <li class="breadcrumb-item active">{{ substrate.name }}</li>
+</ol>
+<div class="container">
+  <div class="row">
+    <div col-md-12>
+      <div class="page-header">
+        <h1>{{substrate.name}}</h1>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Informations and image -->
+  <div class="row">
+    <div class="col-8">
+      <div class="card border-primary mb-3">
+        <div class="card-header">Informations
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Name : {{ substrate.name}}
+          </p>
+          <p class="card-text">Chemistery : {{ substrate.chemistery}}</p>
+          {% if substrate.date_treatment %}
+          <p class="card-text">
+            Treatment date : {{ substrate.date_treatment }}
+          </p>
+          <p class="card-text">
+            Time of treatment : {{ substrate.treatment_time}} min
+          </p>
+          <p class="card-text">
+            Time in the oven : {{ substrate.oven_time}} h
+          </p>
+          {% else %}
+          <p class="card-text">
+            Untreated sample
+          </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <img style="height: 200px; width: 100%; display: block;" src="{{ substrate.image.url }}" alt="Card image">
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- table of experiments -->
+  <div class="row">
+    <div class="col-12">
+      <h4>Solidification</h4>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- table of Tensiometrie -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-8">
+          <h4>Static contact angle</h4>
+        </div>
+        <div class="col-md-4">
+          <span class="badge badge-pill badge-primary">70.6</span>
+        </div>
+      </div>
+      {% if t_st.count > 0 %}
+      <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Left</th>
+              <th scope="col">Right</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in t_st %}
+        <tr class='clickable-row' data-href='/substrate/'>
+          <th scope="row">{{ i.serie }}</th>
+          <td>{{ i.left }}</td>
+          <td>{{ i.right }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>
+        No value available.
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="col-md-4">
+      <h4>Advancing contact angle</h4>
+      {% if t_ad.count > 0 %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Left</th>
+            <th scope="col">Right</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for i in t_ad %}
+        <tr class='clickable-row' data-href='/substrate/'>
+          <th scope="row">{{ i.serie }}</th>
+          <td>{{ i.left }}</td>
+          <td>{{ i.right }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>
+        No value available.
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="col-md-4">
+      <h4>Receding contact angle</h4>
+      {% if t_re.count > 0 %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Left</th>
+            <th scope="col">Right</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for i in t_re %}
+        <tr class='clickable-row' data-href='/substrate/'>
+          <th scope="row">{{ i.serie }}</th>
+          <td>{{ i.left }}</td>
+          <td>{{ i.right }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>
+        No value available.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+
+
+
+
+</div> <!-- / endcontainer -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(document).ready(function($){
+  $(".clickable-row").click(function(){
+    window.location = $(this).data("href");
+  })
+})
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'phd/base.html' %}
+
+<!-- Content -->
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">PhD</a></li>
+  <li class="breadcrumb-item active">Substrate</li>
+</ol>
+
+<div class="container">
+  <div class="row">
+  {% for substrate in substrates %}
+  <div class="col-4">
+    <div class="card border-primary mb-3">
+      <div class="card-header">
+        <a href="{% url 'substrate_detail' pk=substrate.pk %}">
+          {{ substrate.name }}
+        </a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{ substrate.chimie }}</h4>
+        <p class="card-text">Treated on : {{ substrate.date_treatment }}</p>
+        <p class="card-text">Static contact angle : 80 ± 10°</p>
+        <p class="card-text">Advancind contact angle : 140 ± 10°</p>
+        <p class="card-text">Receding contact angle : 10 ± 10°</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
